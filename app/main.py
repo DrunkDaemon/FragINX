@@ -30,7 +30,7 @@ FRAGRANCE_PROFILES_FILE = DATA / "fragrance_profiles.csv"
 SCENTO_PROFILES_URL = "https://raw.githubusercontent.com/Scento-com/perfume-dataset/main/perfumes.csv"
 _profile_cache = None
 _profile_lock = threading.Lock()
-for folder in (STATIC, CATALOG, UPLOADS):
+for folder in (STATIC, CATALOG, UPLOADS, DATASET_IMAGES):
     folder.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(title="FragINX — Fragrance Intelligence", version="1.1.0")
