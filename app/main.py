@@ -391,6 +391,62 @@ def perfume_search(q: str = ""):
     return {"results": results}
 
 
+@app.get("/api/fragrances")
+def browse_fragrances(q: str = "", family: str = "", season: str = "",
+                      time_of_day: str = "", page: int = 1, per_page: int = 24):
+    profiles = load_fragrance_profiles()
+    query = normalize_name(q)
+    family_filter = normalize_name(family)
+    season_filter = normalize_name(season)
+    time_filter = normalize_name(time_of_day)
+    families = sorted({r.get("family", "").strip() for r in profiles if r.get("family", "").strip()}, key=str.casefold)
+    seasons = sorted({v for r in profiles for v in split_profile_values(r.get("seasons", ""))}, key=str.casefold)
+    times = sorted({v for r in profiles for v in split_profile_values(r.get("times_of_day", ""))}, key=str.casefold)
+    matches = []
+    for row in profiles:
+        name = (row.get("name") or "").strip()
+        brand = (row.get("house") or "").strip()
+        row_family = (row.get("family") or "").strip()
+        row_seasons = split_profile_values(row.get("seasons", ""))
+        row_times = split_profile_values(row.get("times_of_day", ""))
+        searchable = normalize_name(" ".join([name, brand, row_family,
+            row.get("secondary_family", ""), row.get("character", ""),
+            row.get("top_notes", ""), row.get("heart_notes", ""),
+            row.get("base_notes", ""), row.get("notes", "")]))
+        if query and query not in searchable:
+            continue
+        if family_filter and family_filter not in normalize_name(row_family):
+            continue
+        if season_filter and not any(season_filter in normalize_name(v) for v in row_seasons):
+            continue
+        if time_filter and not any(time_filter in normalize_name(v) for v in row_times):
+            continue
+        matches.append({
+            "brand": brand, "perfume": name,
+            "year": (row.get("year") or "").strip() or None,
+            "concentration": (row.get("concentration") or "").strip() or None,
+            "family": row_family,
+            "secondary_family": (row.get("secondary_family") or "").strip(),
+            "top_notes": split_profile_values(row.get("top_notes", "")),
+            "heart_notes": split_profile_values(row.get("heart_notes", "")),
+            "base_notes": split_profile_values(row.get("base_notes", "")),
+            "seasons": row_seasons, "times_of_day": row_times,
+            "description": (row.get("description") or "").strip(),
+            "image": None, "source_url": (row.get("url") or "").strip()
+        })
+    page = max(1, page)
+    per_page = min(48, max(1, per_page))
+    total = len(matches)
+    start = (page - 1) * per_page
+    return {
+        "results": matches[start:start + per_page], "total": total,
+        "page": page, "per_page": per_page,
+        "pages": max(1, (total + per_page - 1) // per_page),
+        "families": families, "seasons": seasons, "times_of_day": times,
+        "source": "Scento Perfume Database (CC BY 4.0)"
+    }
+
+
 @app.get("/api/catalog")
 def catalog():
     products = {}
