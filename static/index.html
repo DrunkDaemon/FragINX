@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#10100f" />
+  <title>FragINX — Fragrance Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#10100f;--panel:#191917;--panel2:#20201d;--line:#34332e;--text:#f4f0e7;--muted:#aaa69b;--gold:#d9b978;--gold2:#f0d9a5;--green:#b5d5b4;--red:#e7a9a1}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 78% -15%,#4d3a1f55,transparent 36%),var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer}a{color:inherit}
+    .shell{max-width:1180px;margin:auto;padding:0 28px}.topbar{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff14}.brandmark{display:flex;align-items:center;gap:12px}.logo{width:37px;height:37px;border:1px solid #c6a86c;border-radius:50%;display:grid;place-items:center;color:var(--gold);font-family:'Playfair Display';font-size:22px}.brandname{font-weight:700;letter-spacing:.13em;font-size:13px}.brandname span{display:block;font-size:9px;color:var(--muted);letter-spacing:.22em;font-weight:500;margin-top:4px}.status{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px}.dot{width:7px;height:7px;border-radius:50%;background:#91c49b;box-shadow:0 0 10px #91c49b55}
+    .hero{padding:66px 0 36px;max-width:760px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.23em;color:var(--gold);font-weight:700}.hero h1{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(40px,6vw,70px);line-height:1.04;letter-spacing:-.035em;margin:18px 0}.hero h1 em{font-weight:500;color:var(--gold2)}.hero p{color:var(--muted);font-size:15px;line-height:1.8;max-width:630px;margin:0}.tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);margin:22px 0 28px}.tab{background:none;border:0;color:var(--muted);padding:14px 18px;position:relative;font-size:13px}.tab.active{color:var(--gold2)}.tab.active:after{content:'';position:absolute;bottom:-1px;height:2px;background:var(--gold);left:15px;right:15px}
+    .layout{display:grid;grid-template-columns:minmax(0,1.03fr) minmax(330px,.97fr);gap:24px;align-items:start}.panel{background:linear-gradient(145deg,#1b1b18,#151513);border:1px solid var(--line);border-radius:18px;padding:25px;min-width:0}.panelhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.panel h2{font-size:15px;margin:0;font-weight:600}.step{font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}.dropzone{min-height:300px;border:1px dashed #61563e;border-radius:14px;background:linear-gradient(145deg,#c7a86608,#ffffff02);display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:24px}.dropzone.drag{border-color:var(--gold2);background:#d9b97812}.dropzone input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.drop-content{pointer-events:none}.upload-icon{height:54px;width:54px;border-radius:50%;border:1px solid #8d774e;display:grid;place-items:center;margin:0 auto 18px;color:var(--gold);font-size:24px}.drop-title{font-size:14px;font-weight:600;margin-bottom:7px}.drop-sub{font-size:12px;color:var(--muted);line-height:1.6}.drop-sub strong{color:var(--gold2);font-weight:500}.preview{display:none;max-width:100%;max-height:270px;object-fit:contain;border-radius:10px}.preview-name{font-size:12px;color:var(--muted);margin-top:12px;overflow-wrap:anywhere}.primary{background:var(--gold);color:#17140e;border:0;border-radius:9px;padding:13px 18px;font-weight:700;font-size:12px;letter-spacing:.025em;transition:.2s}.primary:hover{background:var(--gold2);transform:translateY(-1px)}.primary:disabled{opacity:.45;cursor:not-allowed;transform:none}.full{width:100%;margin-top:16px}.fineprint{font-size:11px;color:#858176;line-height:1.6;margin-top:13px}.result-empty{min-height:390px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:var(--muted);padding:25px}.orb{width:90px;height:90px;border:1px solid #5a4a2e;border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:32px;margin-bottom:20px;box-shadow:0 0 50px #d9b9780b,inset 0 0 30px #d9b9780a}.result-empty strong{font-size:14px;color:#e6dfd0;font-weight:600;margin-bottom:8px}.result-empty p{font-size:12px;line-height:1.7;max-width:265px;margin:0}.result{display:none}.result-main{display:grid;grid-template-columns:125px minmax(0,1fr);gap:18px;align-items:center}.product-img{height:150px;width:125px;object-fit:contain;background:#f6f3eb;border-radius:10px;padding:9px}.match-label{font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:var(--gold);margin-bottom:8px}.product-name{font-family:'Playfair Display',serif;font-size:25px;line-height:1.14;margin:0 0 6px;overflow-wrap:anywhere}.product-brand{font-size:12px;color:var(--muted)}.score-row{display:flex;align-items:center;gap:9px;margin-top:16px}.score-track{height:4px;background:#39372f;border-radius:99px;flex:1;overflow:hidden}.score-fill{height:100%;background:linear-gradient(90deg,#a7884c,var(--gold2));width:0}.score{font-size:12px;color:var(--gold2);font-weight:700;white-space:nowrap}.rule{height:1px;background:var(--line);margin:23px 0}.section-title{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:13px}.alternatives{display:grid;gap:10px}.alt{display:grid;grid-template-columns:46px minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px;border:1px solid #ffffff0d;background:#ffffff03;border-radius:10px}.alt img{width:46px;height:52px;object-fit:contain;background:#f6f3eb;border-radius:6px;padding:4px}.alt-name{font-size:12px;font-weight:600;overflow-wrap:anywhere}.alt-brand{font-size:11px;color:var(--muted);margin-top:4px}.alt-score{font-size:11px;color:var(--gold2)}.notice{font-size:11px;line-height:1.6;color:var(--muted);padding:12px;background:#d9b9780b;border-radius:8px;margin-top:15px}.error{color:var(--red);font-size:12px;margin-top:12px;line-height:1.5}.loading{display:none;align-items:center;gap:10px;font-size:12px;color:var(--gold2);margin-top:15px}.spinner{width:15px;height:15px;border:2px solid #5b4b30;border-top-color:var(--gold2);border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .profile-panel{margin-top:10px}.note-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0}.note-card{padding:12px;background:#ffffff04;border:1px solid #ffffff0d;border-radius:10px;min-width:0}.note-label{font-size:9px;letter-spacing:.13em;color:var(--gold);display:block;margin-bottom:8px}.note-values{font-size:11px;line-height:1.65;color:var(--text);overflow-wrap:anywhere}.profile-meta{display:flex;flex-wrap:wrap;gap:7px}.profile-chip{font-size:10px;color:var(--gold2);border:1px solid #6a5734;border-radius:99px;padding:6px 9px}.profile-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}.profile-stat{padding:11px;border:1px solid #ffffff0d;border-radius:9px}.profile-stat strong{display:block;font-size:11px;margin-bottom:5px}.profile-stat span{font-size:11px;color:var(--muted);line-height:1.5}.profile-description{font-size:12px;line-height:1.75;color:var(--muted);margin:12px 0}.profile-source{font-size:10px;line-height:1.6;color:var(--muted)}.profile-source a{color:var(--gold2)}
+    .catalog-view{display:none}.catalog-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}.field label{font-size:11px;color:var(--muted)}.field input[type=text]{background:#11110f;border:1px solid var(--line);border-radius:8px;padding:12px;color:var(--text);outline:none}.field input:focus{border-color:#9f8552}.filebox{border:1px dashed #61563e;padding:17px;border-radius:10px;color:var(--muted);font-size:12px;line-height:1.7}.filebox input{display:block;margin-top:10px;max-width:100%;font-size:11px}.catalog-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}.stat{padding:16px;background:#ffffff04;border:1px solid #ffffff0d;border-radius:10px}.stat strong{display:block;font-family:'Playfair Display';font-size:27px;font-weight:500;color:var(--gold2)}.stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.product-list{display:grid;gap:9px;max-height:390px;overflow:auto}.catalog-product{display:flex;align-items:center;gap:11px;padding:9px;border:1px solid #ffffff0d;border-radius:9px}.catalog-product img{width:42px;height:48px;object-fit:contain;background:#f6f3eb;border-radius:5px;padding:3px}.catalog-product strong{font-size:12px;display:block}.catalog-product span{font-size:10px;color:var(--muted);display:block;margin-top:4px}.footer{border-top:1px solid #ffffff12;margin-top:60px;padding:23px 0 32px;display:flex;justify-content:space-between;gap:16px;color:#777368;font-size:10px;line-height:1.6}.footer strong{color:#c3b99f;font-weight:500}
+    @media(max-width:820px){.layout{grid-template-columns:1fr}.hero{padding-top:46px}.result-empty{min-height:250px}.shell{padding:0 18px}.panel{padding:19px}.dropzone{min-height:250px}}@media(max-width:560px){.note-grid{grid-template-columns:1fr}.profile-stats{grid-template-columns:1fr 1fr}}@media(max-width:480px){.topbar{height:70px}.status{font-size:10px}.hero h1{font-size:43px}.result-main{grid-template-columns:95px minmax(0,1fr);gap:13px}.product-img{width:95px;height:130px}.product-name{font-size:21px}.catalog-grid{grid-template-columns:1fr}.footer{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brandmark"><div class="logo">F</div><div class="brandname">FRAGINX<span>FRAGRANCE INTELLIGENCE</span></div></div>
+      <div class="status"><span class="dot"></span><span id="systemStatus">VISION SYSTEM READY</span></div>
+    </header>
+    <section class="hero">
+      <div class="eyebrow">Visual recognition · Fragrance catalog</div>
+      <h1>Every bottle has<br>a <em>signature.</em></h1>
+      <p>Discover the fragrance behind the glass. Upload a bottle photo and FragINX will compare its visual features against the perfume catalog, then reveal fragrance notes and wearing recommendations when data is available.</p>
+    </section>
+    <nav class="tabs"><button class="tab active" data-tab="identify">01 &nbsp; Identify</button><button class="tab" data-tab="catalog">02 &nbsp; Build your catalog</button></nav>
+    <main>
+      <section id="identifyView" class="layout">
+        <div class="panel">
+          <div class="panelhead"><h2>Upload a bottle</h2><span class="step">Step 01 / Input</span></div>
+          <div id="dropzone" class="dropzone">
+            <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp" aria-label="Choose a perfume image">
+            <div id="dropContent" class="drop-content"><div class="upload-icon">↑</div><div class="drop-title">Drop your image here</div><div class="drop-sub">or <strong>browse files</strong> to choose a photo<br>JPG, PNG or WEBP · up to 12 MB</div></div>
+            <div id="previewWrap" style="display:none;pointer-events:none"><img id="preview" class="preview" alt="Selected perfume bottle"><div id="previewName" class="preview-name"></div></div>
+          </div>
+          <button id="identifyBtn" class="primary full" disabled>IDENTIFY PERFUME &nbsp; ↗</button>
+          <div id="loading" class="loading"><span class="spinner"></span><span>Comparing visual features against your catalog…</span></div>
+          <div id="identifyError" class="error"></div>
+          <p class="fineprint">Best results: use a clear photo showing the full bottle. A front-facing image with good lighting usually works best.</p>
+        </div>
+        <div class="panel">
+          <div class="panelhead"><h2>Recognition result</h2><span class="step">Step 02 / Match</span></div>
+          <div id="emptyResult" class="result-empty"><div class="orb">✳</div><strong>Your next signature scent</strong><p>Your closest perfume matches will appear here after you upload a bottle image.</p></div>
+          <div id="result" class="result">
+            <div class="result-main"><img id="bestImage" class="product-img" alt="Best matching perfume"><div><div class="match-label">Closest catalog match</div><h3 id="bestName" class="product-name">—</h3><div id="bestBrand" class="product-brand">—</div><div class="score-row"><div class="score-track"><div id="bestScoreFill" class="score-fill"></div></div><span id="bestScore" class="score">—</span></div></div></div>
+            <div class="rule"></div>
+            <div class="section-title">Fragrance profile</div>
+            <div id="profileLoading" class="fineprint">Looking up notes and wearing guidance…</div>
+            <div id="profilePanel" class="profile-panel">
+              <div class="profile-meta" id="profileMeta"></div>
+              <div class="note-grid">
+                <div class="note-card"><span class="note-label">TOP NOTES</span><div id="topNotes" class="note-values">Not available</div></div>
+                <div class="note-card"><span class="note-label">HEART NOTES</span><div id="heartNotes" class="note-values">Not available</div></div>
+                <div class="note-card"><span class="note-label">BASE NOTES</span><div id="baseNotes" class="note-values">Not available</div></div>
+              </div>
+              <div class="profile-stats" id="profileStats"></div>
+              <p id="profileDescription" class="profile-description"></p>
+              <div id="profileSource" class="profile-source"></div>
+            </div>
+            <div class="rule"></div><div class="section-title">Other close matches</div><div id="alternatives" class="alternatives"></div><div id="resultNote" class="notice"></div>
+          </div>
+        </div>
+      </section>
+      <section id="catalogView" class="layout catalog-view">
+        <div class="panel">
+          <div class="panelhead"><h2>Add perfume images</h2><span class="step">Catalog / Ingest</span></div>
+          <form id="catalogForm">
+            <div class="catalog-grid"><div class="field"><label for="brandInput">BRAND NAME</label><input id="brandInput" type="text" placeholder="e.g. Dior" required maxlength="80"></div><div class="field"><label for="perfumeInput">PERFUME NAME</label><input id="perfumeInput" type="text" placeholder="e.g. Sauvage Eau de Toilette" required maxlength="100"></div></div>
+            <div class="field"><label>PRODUCT PHOTOS</label><div class="filebox">Add multiple angles or lighting conditions for the same perfume.<input id="catalogFiles" type="file" accept="image/png,image/jpeg,image/webp" multiple required></div></div>
+            <button id="addCatalogBtn" class="primary full" type="submit">ADD IMAGES & UPDATE INDEX &nbsp; ↗</button>
+            <div id="catalogLoading" class="loading"><span class="spinner"></span><span>Encoding images and rebuilding the index…</span></div><div id="catalogMessage" class="error"></div>
+          </form>
+          <p class="fineprint">Images are stored locally in your project. The first run downloads a pretrained vision model; adding images calculates visual embeddings, not a new fine-tuning run.</p>
+        </div>
+        <div class="panel">
+          <div class="panelhead"><h2>Catalog overview</h2><span class="step">Library / Index</span></div>
+          <div class="catalog-stats"><div class="stat"><strong id="imageCount">0</strong><span>Indexed images</span></div><div class="stat"><strong id="productCount">0</strong><span>Unique perfumes</span></div></div>
+          <div class="section-title">Recently indexed products</div><div id="productList" class="product-list"><div class="fineprint">Your catalog is empty. Add the first perfume images to begin.</div></div>
+          <button id="reindexBtn" class="primary full" type="button" style="margin-top:18px;background:#2b2923;color:var(--gold2);border:1px solid #5a4b31">REBUILD INDEX</button><div id="reindexMessage" class="fineprint"></div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div><strong>FRAGINX · FRAGRANCE INTELLIGENCE</strong><br>Identify it. Understand it. Wear it right.</div><div>Powered by CLIP embeddings · Runs locally<br>Similarity scores are not calibrated probabilities.</div></footer>
+  </div>
+<script>
+  const $ = id => document.getElementById(id);
+  let selectedImage = null;
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.toggle('active', t === tab));
+    const catalog = tab.dataset.tab === 'catalog';
+    $('identifyView').style.display = catalog ? 'none' : 'grid';
+    $('catalogView').style.display = catalog ? 'grid' : 'none';
+    if (catalog) loadCatalog();
+  }));
+  function chooseFile(file) {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { $('identifyError').textContent = 'Please choose an image file.'; return; }
+    if (file.size > 12 * 1024 * 1024) { $('identifyError').textContent = 'This image is larger than 12 MB.'; return; }
+    selectedImage = file; $('identifyError').textContent = '';
+    $('preview').src = URL.createObjectURL(file); $('preview').style.display = 'block'; $('previewWrap').style.display = 'block';
+    $('dropContent').style.display = 'none'; $('previewName').textContent = file.name; $('identifyBtn').disabled = false;
+  }
+  $('imageInput').addEventListener('change', e => chooseFile(e.target.files[0]));
+  const dz = $('dropzone');
+  ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, e => {e.preventDefault();dz.classList.add('drag')}));
+  ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => {e.preventDefault();dz.classList.remove('drag')}));
+  dz.addEventListener('drop', e => chooseFile(e.dataTransfer.files[0]));
+  $('identifyBtn').addEventListener('click', async () => {
+    if (!selectedImage) return;
+    $('identifyBtn').disabled = true; $('loading').style.display = 'flex'; $('identifyError').textContent = '';
+    const form = new FormData(); form.append('file', selectedImage);
+    try {
+      const response = await fetch('/api/predict', {method:'POST', body:form});
+      const data = await response.json(); if (!response.ok) throw new Error(data.detail || 'Recognition failed.');
+      showResult(data);
+    } catch (err) { $('identifyError').textContent = err.message; }
+    finally { $('identifyBtn').disabled = false; $('loading').style.display = 'none'; }
+  });
+  function showResult(data) {
+    const best = data.matches[0]; if (!best) throw new Error('No matching product was found.');
+    $('emptyResult').style.display = 'none'; $('result').style.display = 'block';
+    $('bestImage').src = best.image; $('bestName').textContent = best.perfume; $('bestBrand').textContent = best.brand;
+    $('bestScore').textContent = best.similarity + '% similarity'; $('bestScoreFill').style.width = best.similarity + '%';
+    $('alternatives').innerHTML = '';
+    data.matches.slice(1).forEach(item => {
+      const el = document.createElement('div'); el.className = 'alt';
+      const img = document.createElement('img'); img.src = item.image; img.alt = item.perfume;
+      const details = document.createElement('div'); const name = document.createElement('div'); name.className = 'alt-name'; name.textContent = item.perfume; const brand = document.createElement('div'); brand.className = 'alt-brand'; brand.textContent = item.brand; details.append(name, brand);
+      const score = document.createElement('div'); score.className = 'alt-score'; score.textContent = item.similarity + '%'; el.append(img, details, score); $('alternatives').appendChild(el);
+    });
+    if (data.matches.length === 1) $('alternatives').innerHTML = '<div class="fineprint">No additional distinct products are indexed yet.</div>';
+    $('resultNote').textContent = data.note;
+    loadProfile(best.brand, best.perfume);
+  }
+  function renderList(id, values) {
+    $(id).textContent = values && values.length ? values.join(' · ') : 'Not available in the current data source';
+  }
+  async function loadProfile(brand, perfume) {
+    $('profileLoading').style.display = 'block';
+    $('profilePanel').style.display = 'none';
+    try {
+      const params = new URLSearchParams({brand, perfume});
+      const response = await fetch('/api/perfume/profile?' + params.toString());
+      const profile = await response.json();
+      if (!response.ok) throw new Error(profile.detail || 'Profile lookup failed.');
+      renderList('topNotes', profile.top_notes);
+      renderList('heartNotes', profile.heart_notes);
+      renderList('baseNotes', profile.base_notes);
+      $('profileMeta').innerHTML = '';
+      const chips = [profile.family, profile.secondary_family, profile.concentration, profile.year].filter(Boolean);
+      if (profile.character && profile.character.length) chips.push(...profile.character.slice(0, 3));
+      chips.forEach(value => { const chip = document.createElement('span'); chip.className = 'profile-chip'; chip.textContent = value; $('profileMeta').appendChild(chip); });
+      $('profileStats').innerHTML = '';
+      const stats = [
+        ['SEASONS', profile.seasons && profile.seasons.length ? profile.seasons.join(' · ') : 'Not available'],
+        ['BEST TIME', profile.times_of_day && profile.times_of_day.length ? profile.times_of_day.join(' · ') : 'Not available'],
+        ['LONGEVITY', profile.longevity || 'No verified rating available'],
+        ['SILLAGE', profile.sillage || 'No verified rating available']
+      ];
+      stats.forEach(([label, value]) => { const card = document.createElement('div'); card.className = 'profile-stat'; const strong = document.createElement('strong'); strong.textContent = label; const span = document.createElement('span'); span.textContent = value; card.append(strong, span); $('profileStats').appendChild(card); });
+      $('profileDescription').textContent = profile.description || (profile.all_notes && profile.all_notes.length ? 'Other listed notes: ' + profile.all_notes.join(', ') : 'No additional fragrance description is available for this perfume yet.');
+      $('profileSource').innerHTML = '';
+      if (profile.source_name) {
+        $('profileSource').textContent = 'Data source: ' + profile.source_name + (profile.source_name.includes('Scento') ? ' · Licensed CC BY 4.0.' : '');
+        if (profile.source_url) { const link = document.createElement('a'); link.href = profile.source_url; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = ' View source'; $('profileSource').appendChild(link); }
+      } else {
+        $('profileSource').textContent = 'Profile data is incomplete. Notes and performance ratings are not guessed.';
+      }
+      $('profilePanel').style.display = 'block';
+    } catch (err) {
+      $('profileDescription').textContent = 'Could not load fragrance details: ' + err.message;
+      $('profilePanel').style.display = 'block';
+    } finally { $('profileLoading').style.display = 'none'; }
+  }
+  $('catalogForm').addEventListener('submit', async e => {
+    e.preventDefault(); const files = $('catalogFiles').files;
+    if (!files.length) { $('catalogMessage').textContent = 'Choose at least one product image.'; return; }
+    const form = new FormData(); form.append('brand', $('brandInput').value); form.append('perfume', $('perfumeInput').value);
+    Array.from(files).forEach(file => form.append('files', file));
+    $('addCatalogBtn').disabled = true; $('catalogLoading').style.display = 'flex'; $('catalogMessage').textContent = '';
+    try {
+      const response = await fetch('/api/catalog/add', {method:'POST',body:form}); const data = await response.json(); if (!response.ok) throw new Error(data.detail || 'Could not add images.');
+      $('catalogMessage').style.color = 'var(--green)'; $('catalogMessage').textContent = data.message + ' Catalog now contains ' + data.catalog_images + ' indexed image(s).';
+      $('catalogForm').reset(); await loadCatalog();
+    } catch(err) { $('catalogMessage').style.color = 'var(--red)'; $('catalogMessage').textContent = err.message; }
+    finally { $('addCatalogBtn').disabled = false; $('catalogLoading').style.display = 'none'; }
+  });
+  async function loadCatalog() {
+    try {
+      const res = await fetch('/api/catalog'); const data = await res.json(); $('imageCount').textContent = data.image_count; $('productCount').textContent = data.product_count;
+      $('productList').innerHTML = '';
+      if (!data.products.length) { $('productList').innerHTML = '<div class="fineprint">Your catalog is empty. Add the first perfume images to begin.</div>'; return; }
+      data.products.slice().reverse().forEach(item => {
+        const row = document.createElement('div'); row.className = 'catalog-product'; const img = document.createElement('img'); img.src = item.image; img.alt = item.perfume;
+        const details = document.createElement('div'); const name = document.createElement('strong'); name.textContent = item.perfume; const meta = document.createElement('span'); meta.textContent = item.brand + ' · ' + item.image_count + ' image(s)'; details.append(name, meta); row.append(img, details); $('productList').append(row);
+      });
+    } catch(e) { $('productList').textContent = 'Could not load catalog.'; }
+  }
+  $('reindexBtn').addEventListener('click', async () => {
+    $('reindexBtn').disabled = true; $('reindexMessage').textContent = 'Rebuilding embeddings…';
+    try { const res = await fetch('/api/catalog/reindex',{method:'POST'}); const data = await res.json(); if (!res.ok) throw new Error(data.detail || 'Reindex failed.'); $('reindexMessage').textContent = data.message + ' ' + data.catalog_images + ' image(s) indexed.'; await loadCatalog(); }
+    catch(e) { $('reindexMessage').textContent = e.message; }
+    finally { $('reindexBtn').disabled = false; }
+  });
+  fetch('/api/health').then(r=>r.json()).then(data=>{ $('systemStatus').textContent = data.catalog_images ? 'VISION SYSTEM READY · ' + data.catalog_images + ' IMAGES' : 'VISION SYSTEM READY · CATALOG EMPTY'; }).catch(()=>{$('systemStatus').textContent='STARTING BACKEND…'});
+</script>
+</body>
+</html>

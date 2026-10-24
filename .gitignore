@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/uploads/*
+data/catalog/*
+!data/catalog/.gitkeep
+.env
+data/perfume_dataset/
+data/catalog_index.json
+data/catalog_vectors.npy
