@@ -455,15 +455,59 @@ def browse_fragrances(q: str = "", family: str = "", season: str = "",
     }
 
 
-@app.get("/api/catalog")
-def catalog():
+def build_catalog_products():
     products = {}
     for item in _catalog_items:
         key = (item["brand"], item["perfume"])
         if key not in products:
-            products[key] = {"brand": item["brand"], "perfume": item["perfume"], "image": item["image"], "image_count": 0}
+            products[key] = {
+                "brand": item["brand"],
+                "perfume": item["perfume"],
+                "image": item["image"],
+                "image_count": 0,
+            }
         products[key]["image_count"] += 1
-    return {"image_count": len(_catalog_items), "product_count": len(products), "products": list(products.values())[:100]}
+    return list(products.values())
+
+
+@app.get("/api/catalog")
+def catalog():
+    products = build_catalog_products()
+    # Keep the existing catalog-management response lightweight.
+    return {
+        "image_count": len(_catalog_items),
+        "product_count": len(products),
+        "products": products[:100],
+    }
+
+
+@app.get("/api/catalog/browse")
+def browse_catalog(q: str = "", page: int = 1, per_page: int = 24):
+    """Search and paginate every product in the visual catalog."""
+    products = build_catalog_products()
+    query = normalize_name(q)
+    if query:
+        products = [
+            item for item in products
+            if query in normalize_name(item["brand"])
+            or query in normalize_name(item["perfume"])
+            or query in normalize_name(item["brand"] + " " + item["perfume"])
+        ]
+
+    page = max(1, page)
+    per_page = min(100, max(1, per_page))
+    total = len(products)
+    pages = max(1, (total + per_page - 1) // per_page)
+    page = min(page, pages)
+    start = (page - 1) * per_page
+    return {
+        "image_count": len(_catalog_items),
+        "total": total,
+        "page": page,
+        "per_page": per_page,
+        "pages": pages,
+        "products": products[start:start + per_page],
+    }
 
 
 @app.post("/api/predict")
