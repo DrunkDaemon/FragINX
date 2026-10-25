@@ -263,8 +263,21 @@
         const card = document.createElement('article');
         card.className = 'browse-card';
         const bottle = document.createElement('div');
-        bottle.className = 'browse-bottle';
-        bottle.textContent = (item.brand || 'F').trim().charAt(0).toUpperCase();
+bottle.className = 'browse-bottle';
+
+if (item.image) {
+  const img = document.createElement('img');
+  img.src = item.image;
+  img.alt = `${item.brand || ''} ${item.perfume || ''}`.trim();
+  img.loading = 'lazy';
+  img.onerror = () => {
+    img.remove();
+    bottle.textContent = (item.brand || 'F').trim().charAt(0).toUpperCase();
+  };
+  bottle.appendChild(img);
+} else {
+  bottle.textContent = (item.brand || 'F').trim().charAt(0).toUpperCase();
+}
         const body = document.createElement('div');
         body.className = 'browse-card-body';
         const brand = document.createElement('div');

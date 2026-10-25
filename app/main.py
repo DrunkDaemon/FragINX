@@ -395,6 +395,11 @@ def perfume_search(q: str = ""):
 def browse_fragrances(q: str = "", family: str = "", season: str = "",
                       time_of_day: str = "", page: int = 1, per_page: int = 24):
     profiles = load_fragrance_profiles()
+    image_map_path = Path(__file__).resolve().parent.parent / "static" / "perfume-images" / "map.json"
+    try:
+        image_map = json.loads(image_map_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        image_map = {}
     query = normalize_name(q)
     family_filter = normalize_name(family)
     season_filter = normalize_name(season)
@@ -432,7 +437,10 @@ def browse_fragrances(q: str = "", family: str = "", season: str = "",
             "base_notes": split_profile_values(row.get("base_notes", "")),
             "seasons": row_seasons, "times_of_day": row_times,
             "description": (row.get("description") or "").strip(),
-            "image": None, "source_url": (row.get("url") or "").strip()
+                        "image": image_map.get(
+                normalize_name(brand) + "|" + normalize_name(name)
+            ),
+            "source_url": (row.get("url") or "").strip()
         })
     page = max(1, page)
     per_page = min(48, max(1, per_page))
